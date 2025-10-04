@@ -6,8 +6,15 @@ pipeline {
     CONTAINER_NAME = "nodeapp"
     PORT = "3000"
   }
+ 
+ stages {
+    stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
 
-  stages {
+ stages {
     stage('Clone') {
       steps {
         git branch: 'master', url: 'https://github.com/hrithik-k0/CI-CD-Project.git'
