@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('Clone') {
       steps {
-        git 'https://github.com/hrithik-k0/CI-CD-Project.git'
+        git branch: 'master', url: 'https://github.com/hrithik-k0/CI-CD-Project.git'
       }
     }
 
