@@ -1,0 +1,46 @@
+pipeline {
+  agent any
+
+  environment {
+    IMAGE_NAME = "myapp"
+    CONTAINER_NAME = "myapp"
+    PORT = "3000"
+  }
+
+  stages {
+    stage('Clone') {
+      steps {
+        git 'https://github.com/your-user/ci-cd-project.git'
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'docker build -t $IMAGE_NAME:latest .'
+      }
+    }
+
+    stage('Test') {
+      steps {
+        sh 'docker run -d -p $PORT:$PORT --name $CONTAINER_NAME $IMAGE_NAME:latest'
+        sh './scripts/run-tests.sh'
+        sh 'docker stop $CONTAINER_NAME && docker rm $CONTAINER_NAME'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        sh 'docker-compose up -d'
+      }
+    }
+  }
+
+  post {
+    failure {
+      echo "❌ Build failed. Check logs."
+    }
+    success {
+      echo "✅ Build succeeded. App deployed!"
+    }
+  }
+}
