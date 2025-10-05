@@ -42,7 +42,7 @@ pipeline {
     stage('Test') {
       steps {
         sh 'docker run -d -p $PORT:$PORT --name $CONTAINER_NAME $IMAGE_NAME:latest'
-        sh './scripts/run-tests.sh'
+        sh './script/run-tests.sh'
         sh 'docker stop $CONTAINER_NAME && docker rm $CONTAINER_NAME'
       }
     }
