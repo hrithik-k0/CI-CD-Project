@@ -4,6 +4,6 @@ services:
   web:
     build: .
     ports:
-      - "3030:3030"
+      - "3000:3000"
     container_name: nodeapp1
     restart: unless-stopped 
