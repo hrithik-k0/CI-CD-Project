@@ -7,7 +7,7 @@ echo "Running health check..."
 sleep 3
 
 #Test the app's response
-RESPONSE=$(curl -s http://localhost:3030)
+RESPONSE=$(curl -s http://localhost:3000)
 
 if echo "$RESPONSE" | grep -q "Hello CI/CD"; then
 echo "✅Test passed!!"
